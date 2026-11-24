@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CuraVault – Dein privater Finanz- &amp; Dokumententresor, 100 % offline</title>
+  <meta name="description" content="CuraVault ist dein privater Finanz- und Dokumententresor: AES-256-verschlüsselt, 100 % offline, ohne Cloud-Zwang und ohne Tracking. Swiss-QR, OCR und Multiwährung.">
+  <meta name="theme-color" content="#0B1120">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://api.github.com; base-uri 'self'; form-action 'none'">
+  <link rel="canonical" href="https://curavaultapp.github.io/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://curavaultapp.github.io/">
+  <meta property="og:title" content="CuraVault – Dein privater Finanz- &amp; Dokumententresor, 100 % offline">
+  <meta property="og:description" content="AES-256 lokal · Kein Cloud-Zwang · Kein Tracking · Swiss-QR, On-Device OCR &amp; Multiwährung.">
+  <meta property="og:image" content="https://curavaultapp.github.io/assets/og-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CuraVault – Dein privater Finanz- &amp; Dokumententresor, 100 % offline">
+  <meta name="twitter:description" content="AES-256 lokal · Kein Cloud-Zwang · Kein Tracking · Swiss-QR, On-Device OCR &amp; Multiwährung.">
+  <meta name="twitter:image" content="https://curavaultapp.github.io/assets/og-preview.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CuraVault",
+    "operatingSystem": "Android",
+    "applicationCategory": "FinanceApplication",
+    "url": "https://curavaultapp.github.io/",
+    "image": "https://curavaultapp.github.io/assets/og-preview.png",
+    "description": "Privater Offline-First Finanz- und Dokumententresor mit lokaler AES-256-Verschlüsselung, Swiss-QR, On-Device OCR, optionalem NAS-Sync (Synology/QNAP via SMB & WebDAV) sowie Google Drive & OneDrive.",
+    "inLanguage": ["de", "fr", "it", "en"],
+    "featureList": [
+      "100 % lokaler AES-256-verschlüsselter Dokumenten- und Finanztresor",
+      "On-Device OCR-Texterkennung & Swiss-QR-Rechnungsscanner komplett offline",
+      "Multiwährungs-Kontoauszüge mit automatischer Saldo-Prüfung",
+      "Optionaler direkter NAS-Sync über SMB & WebDAV (Synology, QNAP, Nextcloud)",
+      "Optionaler verschlüsselter Cloud-Sync mit eigenem Google Drive oder OneDrive",
+      "Manuelles verschlüsseltes Backup, Steuer-ZIP- & Notfall-Export ohne Vendor-Lock-in",
+      "Optionale lokale On-Device-KI (SLM) ohne Netzwerk-, Terminal- oder Tool-Zugriff"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CHF"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Funktioniert CuraVault wirklich komplett offline – und was passiert bei Geräteverlust?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Alle Belege, OCR-Texte und Kontoauszüge bleiben standardmässig AES-256-verschlüsselt auf deinem Smartphone. Bei Geräteverlust bist du abgesichert, indem du jederzeit verschlüsselte Backups lokal, auf dein eigenes NAS (SMB/WebDAV) oder in dein eigenes Google Drive bzw. OneDrive sicherst – ganz ohne CuraVault-Server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kann ich CuraVault mit meinem Synology- oder QNAP-NAS synchronisieren?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. CuraVault unterstützt die direkte Synchronisation über SMB und WebDAV mit deinem eigenen Heimserver (z. B. Synology, QNAP oder Nextcloud) – ohne Docker-Setup und ohne Drittanbieter-Cloud."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kann die optionale lokale KI nach Hause telefonieren?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nein. Die optionale On-Device-KI (z. B. Qwen 2.5) ist kein KI-Agent und besitzt weder Netzwerk-, Terminal- noch Tool-Zugriff. Nach dem einmaligen, freiwilligen Modell-Download läuft die Textverarbeitung vollständig isoliert in der lokalen Sandbox ohne ausgehende Verbindungen."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Hauptnavigation">
+      <a class="brand" href="#top" aria-label="CuraVault">
+        <img src="assets/logo.svg" alt="" width="30" height="30" aria-hidden="true">
+        <span>CuraVault</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#features" data-i18n="nav.features">Funktionen</a></li>
+        <li><a href="#voting" data-i18n="nav.voting">Feature-Voting</a></li>
+        <li><a href="#privacy" data-i18n="nav.privacy">Datenschutz</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <div class="lang-switch" role="group" aria-label="Sprache wählen" data-i18n-attr="aria-label:a11y.lang">
+          <button type="button" data-lang="de" lang="de" aria-pressed="true" title="Deutsch">DE</button>
+          <button type="button" data-lang="fr" lang="fr" aria-pressed="false" title="Français">FR</button>
+          <button type="button" data-lang="it" lang="it" aria-pressed="false" title="Italiano">IT</button>
+          <button type="button" data-lang="en" lang="en" aria-pressed="false" title="English">EN</button>
+        </div>
+        <button class="nav-toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Menü öffnen" data-i18n-attr="aria-label:a11y.menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span><span data-i18n="hero.eyebrow">Made in Switzerland · Offline-First</span></span>
+          <h1 data-i18n-html="hero.title">Dein privater Finanz- &amp; Dokumententresor – <span class="accent">100 % offline.</span></h1>
+          <p class="lead" data-i18n="hero.lead">Belege scannen, Rechnungen verwalten, Kontoauszüge prüfen – alles verschlüsselt auf deinem Gerät. Keine Cloud, kein Konto, kein Tracking.</p>
+
+          <ul class="badges">
+            <li class="badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              <span data-i18n="badge.aes">AES-256 lokal</span>
+            </li>
+            <li class="badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H8a5 5 0 1 1 1.1-9.9A6 6 0 0 1 20 11a4 4 0 0 1-2.5 8z"/><path d="M3 3l18 18"/></svg>
+              <span data-i18n="badge.cloud">Kein Cloud-Zwang</span>
+            </li>
+            <li class="badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7c2 0 3.8.7 5.2 1.6M22 12s-3.5 7-10 7c-2 0-3.8-.7-5.2-1.6"/><path d="M3 3l18 18"/></svg>
+              <span data-i18n="badge.tracking">Kein Tracking</span>
+            </li>
+            <li class="badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
+              <span data-i18n="badge.qr">Swiss-QR &amp; Multiwährung</span>
+            </li>
+          </ul>
+
+          <div class="cta-row">
+            <span class="btn btn-primary" role="note" aria-disabled="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.6 2.3c-.3.2-.4.6-.4 1v17.4c0 .4.1.8.4 1l9.6-9.7-9.6-9.7zm10.5 8.8 2.7-2.7L6.3 1.8l8.8 9.3zm0 1.8-8.8 9.3 11.5-6.6-2.7-2.7zm6.3-2.3-2.6-1.5-3 3 3 3 2.6-1.5c.8-.5.8-1.6 0-3z"/></svg>
+              <span data-i18n="cta.play">Bald auf Google Play</span>
+            </span>
+            <a class="btn btn-secondary" href="#voting">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+              <span data-i18n="cta.feature">Feature wünschen</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="phone-frame" aria-label="CuraVault App-Vorschau" data-i18n-attr="aria-label:mock.alt">
+            <div class="phone-notch" aria-hidden="true"></div>
+            <div class="phone-screen">
+              <img class="phone-img" id="app-preview-img" src="assets/app-preview.png" alt="CuraVault App-Vorschau" data-i18n-attr="alt:mock.alt" loading="eager" decoding="async">
+              <div class="phone-fallback" id="phone-fallback" aria-hidden="true">
+                <div class="mock-status">
+                  <span>9:41</span>
+                  <span class="mock-pill"><span class="dot"></span><span data-i18n="mock.offline">100 % Offline</span></span>
+                </div>
+                <div class="mock-head">
+                  <div class="mock-brand">
+                    <img src="assets/logo.svg" alt="" width="20" height="20">
+                    <strong>CuraVault</strong>
+                  </div>
+                  <span class="mock-lock">AES-256</span>
+                </div>
+
+                <!-- View 1: Übersicht -->
+                <div class="mock-view is-active" data-mock-view="overview">
+                  <div class="mock-search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <span data-i18n="mock.search">Belege &amp; Volltext durchsuchen …</span>
+                  </div>
+                  <div class="mock-balance">
+                    <div class="mock-balance-top">
+                      <span data-i18n="mock.overview">Monatsübersicht</span>
+                      <span class="mock-ok" data-i18n="mock.checked">Saldo ✓</span>
+                    </div>
+                    <div class="mock-amount">CHF 2'480.50</div>
+                    <div class="mock-sub">EUR 310.00 · USD 84.20</div>
+                  </div>
+                  <div class="mock-list-title" data-i18n="mock.recent">Letzte Belege</div>
+                  <div class="mock-item">
+                    <div>
+                      <strong data-i18n="mock.item1">Krankenkasse · Swiss-QR</strong>
+                      <span data-i18n="mock.meta1">On-Device OCR · Bezahlt</span>
+                    </div>
+                    <span class="mock-val">CHF 385.00</span>
+                  </div>
+                  <div class="mock-item">
+                    <div>
+                      <strong data-i18n="mock.item2">Garantie · Laptop Pro</strong>
+                      <span data-i18n="mock.meta2">Elektronik · 24M Garantie</span>
+                    </div>
+                    <span class="mock-val">CHF 1'499.00</span>
+                  </div>
+                  <div class="mock-item">
+                    <div>
+                      <strong data-i18n="mock.item3">Steuer-ZIP 2026</strong>
+                      <span data-i18n="mock.meta3">42 Belege · 1-Klick-Export</span>
+                    </div>
+                    <span class="mock-tag">ZIP</span>
+                  </div>
+                </div>
+
+                <!-- View 2: Kontoauszug -->
+                <div class="mock-view" data-mock-view="statement">
+                  <div class="mock-balance">
+                    <div class="mock-balance-top">
+                      <span data-i18n="mock.st.title">Privatkonto · CHF / EUR</span>
+                      <span class="mock-ok" data-i18n="mock.st.verified">Saldo geprüft ✓</span>
+                    </div>
+                    <div class="mock-amount">CHF 6'842.15</div>
+                    <div class="mock-sub" data-i18n="mock.st.sub">PDF / CSV lokal importiert · 0 Abweichungen</div>
+                  </div>
+                  <div class="mock-list-title" data-i18n="mock.st.tx">Erkannte Buchungen</div>
+                  <div class="mock-item">
+                    <div>
+                      <strong>Migros Zürich</strong>
+                      <span data-i18n="mock.st.c1">Lebensmittel · Händler gelernt</span>
+                    </div>
+                    <span class="mock-val">-CHF 84.30</span>
+                  </div>
+                  <div class="mock-item">
+                    <div>
+                      <strong>SBB CFF FFS</strong>
+                      <span data-i18n="mock.st.c2">Mobilität · Beleg verknüpft</span>
+                    </div>
+                    <span class="mock-val">-CHF 46.00</span>
+                  </div>
+                  <div class="mock-item">
+                    <div>
+                      <strong>Digitec Galaxus</strong>
+                      <span data-i18n="mock.st.c3">Elektronik · Garantie aktiv</span>
+                    </div>
+                    <span class="mock-val">-CHF 219.00</span>
+                  </div>
+                </div>
+
+                <!-- View 3: Tresor -->
+                <div class="mock-view" data-mock-view="vault">
+                  <div class="mock-balance">
+                    <div class="mock-balance-top">
+                      <span data-i18n="mock.v.title">Lokaler Tresor</span>
+                      <span class="mock-ok" data-i18n="mock.v.bio">Biometrie ✓</span>
+                    </div>
+                    <div class="mock-amount" data-i18n="mock.v.count">148 Dokumente</div>
+                    <div class="mock-sub" data-i18n="mock.v.backup">Backup: Verschlüsselt · Eigenes NAS</div>
+                  </div>
+                  <div class="mock-list-title" data-i18n="mock.v.folders">Tresor-Ordner</div>
+                  <div class="mock-item">
+                    <div>
+                      <strong data-i18n="mock.v.f1">Steuern 2026</strong>
+                      <span data-i18n="mock.v.f1m">42 Belege · Steuer-ZIP bereit</span>
+                    </div>
+                    <span class="mock-tag">ZIP</span>
+                  </div>
+                  <div class="mock-item">
+                    <div>
+                      <strong data-i18n="mock.v.f2">Garantiebelege</strong>
+                      <span data-i18n="mock.v.f2m">18 Belege · Volltext-OCR</span>
+                    </div>
+                    <span class="mock-val">18</span>
+                  </div>
+                  <div class="mock-item">
+                    <div>
+                      <strong data-i18n="mock.v.f3">Notfall- &amp; Backup-Export</strong>
+                      <span data-i18n="mock.v.f3m">Lokal, NAS oder eigene Cloud</span>
+                    </div>
+                    <span class="mock-tag">AES</span>
+                  </div>
+                </div>
+
+                <div class="mock-fab" title="Scan">+</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mock-tabs" id="mock-tabs" role="tablist" aria-label="App-Ansicht wählen" data-i18n-attr="aria-label:mock.tabs.label">
+            <button type="button" role="tab" data-mock-tab="overview" aria-selected="true" data-i18n="mock.tab.overview">Übersicht</button>
+            <button type="button" role="tab" data-mock-tab="statement" aria-selected="false" tabindex="-1" data-i18n="mock.tab.statement">Kontoauszug</button>
+            <button type="button" role="tab" data-mock-tab="vault" aria-selected="false" tabindex="-1" data-i18n="mock.tab.vault">Tresor</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="kicker" data-i18n="features.kicker">Funktionen</span>
+          <h2 id="features-title" data-i18n="features.title">Alles, was du brauchst. Nichts, was dich ausspioniert.</h2>
+          <p data-i18n="features.lead">CuraVault vereint Dokumentenablage und Finanzübersicht – vollständig lokal und unter deiner Kontrolle.</p>
+        </header>
+
+        <div class="grid grid-3">
+          <article class="card feature reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5l-8-3z"/><rect x="9" y="10.5" width="6" height="5" rx="1"/><path d="M10 10.5V9a2 2 0 0 1 4 0v1.5"/></svg></div>
+            <h3 data-i18n="f1.title">Verschlüsselter Tresor</h3>
+            <p data-i18n="f1.text">Alle Dokumente und Daten werden mit AES-256 lokal verschlüsselt und per Biometrie oder PIN geschützt.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 9h10M7 12h10M7 15h6"/></svg></div>
+            <h3 data-i18n="f2.title">Swiss-QR &amp; On-Device OCR</h3>
+            <p data-i18n="f2.text">QR-Rechnungen und Belege direkt scannen. Die Texterkennung läuft vollständig auf deinem Gerät.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div>
+            <h3 data-i18n="f3.title">Multiwährungs-Kontoauszüge</h3>
+            <p data-i18n="f3.text">Kontoauszüge in CHF, EUR, USD und mehr importieren – mit automatischer Saldo-Prüfung.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0V9z"/><path d="M5 13v8h14v-8"/></svg></div>
+            <h3 data-i18n="f4.title">Händler-Gedächtnis &amp; Budgets</h3>
+            <p data-i18n="f4.text">CuraVault lernt deine Händler und Kategorien lokal und hilft dir, Budgets im Blick zu behalten.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg></div>
+            <h3 data-i18n="f5.title">Steuer-ZIP- &amp; Notfall-Export</h3>
+            <p data-i18n="f5.text">Exportiere Unterlagen für die Steuererklärung oder den Notfall als ZIP. Kein Vendor-Lock-in.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></svg></div>
+            <h3><span data-i18n="f6.title">Lokale KI</span> <span class="tag-beta" data-i18n="beta">BETA</span></h3>
+            <p data-i18n="f6.text">Optionales On-Device-Sprachmodell (SLM) für smarte Zusammenfassungen – ohne dass Daten das Gerät verlassen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STORAGE & SYNC FREEDOM ================= -->
+    <section class="section section-alt" id="storage" aria-labelledby="storage-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="kicker" data-i18n="storage.kicker">Speicher &amp; Sync</span>
+          <h2 id="storage-title" data-i18n="storage.title">Du entscheidest, wo deine Daten liegen</h2>
+          <p data-i18n="storage.lead">Vom komplett isolierten Smartphone-Tresor bis zum direkten Synology- &amp; QNAP-NAS-Sync – immer ohne CuraVault-Server.</p>
+        </header>
+
+        <div class="grid grid-2 storage-grid">
+          <article class="card storage-card reveal">
+            <div class="storage-top">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/></svg></div>
+              <span class="storage-badge storage-badge-default" data-i18n="st1.badge">Standard</span>
+            </div>
+            <h3 data-i18n="st1.title">100 % Lokal</h3>
+            <p data-i18n="st1.text">Alle Daten und Belege bleiben ausschliesslich AES-256-verschlüsselt auf deinem Smartphone. Keine Internetverbindung nötig.</p>
+          </article>
+
+          <article class="card storage-card reveal">
+            <div class="storage-top">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg></div>
+              <span class="storage-badge" data-i18n="st2.badge">Kein Lock-in</span>
+            </div>
+            <h3 data-i18n="st2.title">Manuelles Backup &amp; Notfall-ZIP</h3>
+            <p data-i18n="st2.text">Jederzeit lokale, verschlüsselte Backups erstellen oder alle Belege als offenes Steuer-/Notfall-ZIP exportieren – null Vendor-Lock-in.</p>
+          </article>
+
+          <article class="card storage-card reveal">
+            <div class="storage-top">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="7" rx="2"/><rect x="2" y="13" width="20" height="7" rx="2"/><path d="M6 7.5h.01M6 16.5h.01M10 7.5h8M10 16.5h8"/></svg></div>
+              <span class="storage-badge" data-i18n="st3.badge">SMB &amp; WebDAV</span>
+            </div>
+            <h3 data-i18n="st3.title">Eigenes NAS / Private Cloud (Synology, QNAP, Nextcloud)</h3>
+            <p data-i18n="st3.text">Direkte Dokumenten-Synchronisation mit deinem eigenen Heimserver (z. B. QNAP, Synology, Nextcloud) im Heimnetzwerk oder per WebDAV – ohne Drittanbieter-Cloud.</p>
+          </article>
+
+          <article class="card storage-card reveal">
+            <div class="storage-top">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H8a5 5 0 1 1 1.1-9.9A6 6 0 0 1 20 11a4 4 0 0 1-2.5 8z"/></svg></div>
+              <span class="storage-badge" data-i18n="st4.badge">Optional</span>
+            </div>
+            <h3 data-i18n="st4.title">Eigene öffentliche Cloud (Google Drive &amp; OneDrive)</h3>
+            <p data-i18n="st4.text">Optionaler direkter Abgleich mit deinem eigenen Google-Drive- oder Microsoft-OneDrive-Konto – verschlüsselt und ohne CuraVault-Zwischenserver.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WHY / USE CASES ================= -->
+    <section class="section" id="why" aria-label="Warum CuraVault" data-i18n-attr="aria-label:why.kicker">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="kicker" data-i18n="why.kicker">Warum CuraVault?</span>
+          <p class="why-intro" data-i18n="why.lead">Entwickelt für alle, die Ordnung in Belegen und Finanzen wollen – ohne IT-Bastelei und ohne fremde Cloud.</p>
+        </header>
+
+        <div class="why-grid">
+          <article class="card why-card reveal">
+            <span class="why-tag" data-i18n="why1.tag">Kein Server nötig</span>
+            <h2 data-i18n="why1.title">Die einfache Alternative zu Paperless-ngx – ohne eigenen Server oder Docker</h2>
+            <p data-i18n="why1.text">Du willst die Kontrolle und Volltextsuche eines privaten Dokumentenarchivs, aber weder NAS noch Docker-Container warten? CuraVault läuft direkt auf deinem Smartphone – sofort startklar, lokal verschlüsselt und ohne laufende Serverkosten.</p>
+            <ul class="why-list">
+              <li data-i18n="why1.b1">Kein Heimserver, kein Docker, kein VPN-Setup</li>
+              <li data-i18n="why1.b2">On-Device OCR &amp; lokale AES-256-Datenbank direkt am Handy</li>
+              <li data-i18n="why1.b3">Jederzeit als verschlüsseltes Backup oder ZIP exportierbar</li>
+            </ul>
+          </article>
+
+          <article class="card why-card reveal">
+            <span class="why-tag" data-i18n="why2.tag">100 % Offline-Scan</span>
+            <h2 data-i18n="why2.title">Belege scannen ohne Cloud-Zwang (Alternative zu Adobe Scan &amp; Genius Scan)</h2>
+            <p data-i18n="why2.text">Viele Scanner-Apps verlangen ein Benutzerkonto oder laden deine Belege für OCR in eine Cloud. Bei CuraVault bleiben Rechnungen, Arztbelege und Kontoauszüge auf deinem Gerät – Texterkennung und Swiss-QR-Auslesung arbeiten komplett offline. Und bei Geräteverlust bist du abgesichert: Verschlüsselte Backups lassen sich jederzeit lokal, auf dein eigenes NAS oder in deine eigene Cloud sichern – ganz ohne CuraVault-Server.</p>
+            <ul class="why-list">
+              <li data-i18n="why2.b1">Keine Anmeldung, kein Zwangs-Abo, keine Cloud-Speicherung</li>
+              <li data-i18n="why2.b2">Lokale OCR-Texterkennung &amp; Swiss-QR direkt auf dem Gerät</li>
+              <li data-i18n="why2.b3">Verschlüsselte Backups lokal, auf eigenes NAS oder eigene Cloud</li>
+            </ul>
+          </article>
+
+          <article class="card why-card reveal">
+            <span class="why-tag" data-i18n="why3.tag">Alltag &amp; Steuern</span>
+            <h2 data-i18n="why3.title">Steuererklärung, Garantiebelege &amp; Kassenzettel digitalisieren</h2>
+            <p data-i18n="why3.text">Statt Schuhkarton und verblasster Thermopapiere findest du jeden Beleg in Sekunden per Volltextsuche. Für die Steuererklärung stellst du alle relevanten Dokumente mit einem Klick als übersichtliches Steuer-ZIP zusammen.</p>
+            <ul class="why-list">
+              <li data-i18n="why3.b1">Sekundenschnelle Volltextsuche über alle gescannten Belege</li>
+              <li data-i18n="why3.b2">1-Klick-Steuer-ZIP-Export &amp; Notfall-Export ohne Vendor-Lock-in</li>
+              <li data-i18n="why3.b3">Garantiebelege, Kassenzettel &amp; Kontoauszüge an einem Ort</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VOTING ================= -->
+    <section class="section section-alt" id="voting" aria-labelledby="voting-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="kicker" data-i18n="voting.kicker">Community</span>
+          <h2 id="voting-title" data-i18n="voting.title">Live-Feature-Voting</h2>
+          <p data-i18n="voting.lead">Du bestimmst mit, was als Nächstes kommt. Stimme mit 👍 auf GitHub ab oder reiche deine eigene Idee ein.</p>
+        </header>
+
+        <div class="voting-actions">
+          <a class="btn btn-primary" href="https://github.com/CuraVaultApp/CuraVaultApp.github.io/issues/new?labels=feature-request" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.8 18.3 5.1 18.3 5.1c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>
+            <span data-i18n="voting.submit">Idee auf GitHub einreichen</span>
+          </a>
+          <a class="btn btn-secondary" href="mailto:curavault.app@proton.me?subject=CuraVault%20Feature-Idee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+            <span data-i18n="voting.email">Per E-Mail vorschlagen</span>
+          </a>
+        </div>
+        <p class="voting-hint" data-i18n="voting.hint">Für die Abstimmung auf GitHub ist ein kostenloses GitHub-Konto nötig. Ohne Konto kannst du uns deine Idee jederzeit per E-Mail senden.</p>
+
+        <div class="filters" id="voting-filters" role="tablist" aria-label="Status filtern" data-i18n-attr="aria-label:voting.filters">
+          <button type="button" role="tab" data-filter="all" aria-selected="true" aria-controls="voting-list"><span data-i18n="filter.all">Alle</span> <span class="count">–</span></button>
+          <button type="button" role="tab" data-filter="open" aria-selected="false" aria-controls="voting-list" tabindex="-1"><span data-i18n="filter.open">Offen</span> <span class="count">–</span></button>
+          <button type="button" role="tab" data-filter="planned" aria-selected="false" aria-controls="voting-list" tabindex="-1"><span data-i18n="filter.planned">Geplant</span> <span class="count">–</span></button>
+          <button type="button" role="tab" data-filter="in-progress" aria-selected="false" aria-controls="voting-list" tabindex="-1"><span data-i18n="filter.in-progress">In Arbeit</span> <span class="count">–</span></button>
+          <button type="button" role="tab" data-filter="released" aria-selected="false" aria-controls="voting-list" tabindex="-1"><span data-i18n="filter.released">Umgesetzt</span> <span class="count">–</span></button>
+        </div>
+
+        <div class="issues" id="voting-list" role="tabpanel" aria-live="polite" aria-busy="false">
+          <noscript>
+            <div class="state-box">
+              <p>Für die Live-Liste wird JavaScript benötigt. Alle Wünsche findest du auch direkt auf GitHub.</p>
+              <a class="btn btn-secondary btn-sm" href="https://github.com/CuraVaultApp/CuraVaultApp.github.io/issues?q=is%3Aissue+label%3Afeature-request">GitHub</a>
+            </div>
+          </noscript>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRIVACY ================= -->
+    <section class="section" id="privacy" aria-labelledby="privacy-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="kicker" data-i18n="privacy.kicker">Datenschutz</span>
+          <h2 id="privacy-title" data-i18n="privacy.title">Privatsphäre ist kein Feature. Sie ist das Fundament.</h2>
+          <p data-i18n="privacy.lead">CuraVault ist so gebaut, dass wir deine Daten gar nicht sehen können – selbst wenn wir wollten.</p>
+        </header>
+
+        <ul class="privacy-points grid grid-2">
+          <li class="card reveal">
+            <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span>
+            <div><strong data-i18n="p1.title">Alles bleibt auf deinem Gerät</strong><span data-i18n="p1.text">Dokumente, OCR-Texte und Kontoauszüge werden lokal mit AES-256 verschlüsselt gespeichert.</span></div>
+          </li>
+          <li class="card reveal">
+            <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span>
+            <div><strong data-i18n="p2.title">Keine Server, volle Backup-Freiheit</strong><span data-i18n="p2.text">Keine Registrierung, keine CuraVault-Server. Bei Geräteverlust bist du trotzdem abgesichert: Verschlüsselte Backups lassen sich jederzeit lokal, auf dein eigenes NAS (SMB/WebDAV) oder in dein eigenes Google Drive bzw. OneDrive sichern.</span></div>
+          </li>
+          <li class="card reveal">
+            <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span>
+            <div><strong data-i18n="p3.title">Kein Tracking, keine Werbung</strong><span data-i18n="p3.text">Keine Analyse-SDKs, keine Werbe-IDs, keine Cookies – weder in der App noch auf dieser Website.</span></div>
+          </li>
+          <li class="card reveal">
+            <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span>
+            <div><strong data-i18n="p4.title">Lokale KI ohne „Nach-Hause-Telefonieren“</strong><span data-i18n="p4.text">Die optionale On-Device-KI (z. B. Qwen 2.5) ist kein KI-Agent und hat weder Netzwerk-, Terminal- noch Tool-Zugriff. Nach dem einmaligen Download läuft sie komplett isoliert in der lokalen Sandbox.</span></div>
+          </li>
+        </ul>
+
+        <div class="faq-box reveal" id="faq">
+          <h3 class="faq-heading" data-i18n="faq.title">Häufige Fragen zu Offline-Betrieb, NAS-Sync &amp; lokaler KI</h3>
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary data-i18n="faq1.q">Kann die optionale lokale KI (z. B. Qwen 2.5) nach Hause telefonieren?</summary>
+              <p data-i18n="faq1.a">Nein. Das On-Device-Sprachmodell ist kein KI-Agent und besitzt weder Netzwerk-, Terminal- noch Tool-Zugriff. Nach dem optionalen, einmaligen Modell-Download läuft die Textverarbeitung vollständig isoliert in der lokalen App-Sandbox ohne ausgehende Verbindungen – ein „Nach-Hause-Telefonieren“ ist technisch ausgeschlossen.</p>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faq2.q">Funktioniert CuraVault mit Synology- &amp; QNAP-NAS (SMB / WebDAV)?</summary>
+              <p data-i18n="faq2.a">Ja. Du kannst deine verschlüsselten Dokumente direkt über SMB im Heimnetzwerk oder über WebDAV mit deinem eigenen NAS (z. B. Synology, QNAP oder Nextcloud) synchronisieren – ganz ohne Docker-Container und ohne fremde Cloud.</p>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faq3.q">Was passiert, wenn mein Smartphone verloren geht oder kaputt ist?</summary>
+              <p data-i18n="faq3.a">Du bist nicht an ein einzelnes Gerät gebunden: Erstelle jederzeit verschlüsselte Backups lokal, auf deinem eigenen NAS oder synchronisiere verschlüsselt über dein eigenes Google Drive oder Microsoft OneDrive – ohne CuraVault-Zwischenserver.</p>
+            </details>
+          </div>
+        </div>
+
+        <p class="center">
+          <a class="btn btn-ghost" href="privacy.html">
+            <span data-i18n="privacy.link">Vollständige Datenschutzerklärung lesen</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER / CONTACT ================= -->
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h2 data-i18n="footer.title">Kontakt</h2>
+          <p data-i18n="footer.text">Fragen, Feedback oder Ideen? Schreib uns – wir antworten persönlich.</p>
+          <p><a class="mail-link" href="mailto:curavault.app@proton.me">curavault.app@proton.me</a></p>
+          <p data-i18n="footer.location">Entwickelt mit Sorgfalt in der Schweiz 🇨🇭</p>
+        </div>
+        <div>
+          <h3 data-i18n="footer.nav">Navigation</h3>
+          <ul>
+            <li><a href="#features" data-i18n="nav.features">Funktionen</a></li>
+            <li><a href="#storage" data-i18n="nav.storage">Speicher &amp; Sync</a></li>
+            <li><a href="#voting" data-i18n="nav.voting">Feature-Voting</a></li>
+            <li><a href="#privacy" data-i18n="nav.privacy">Datenschutz</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 data-i18n="footer.legal">Rechtliches</h3>
+          <ul>
+            <li><a href="privacy.html" data-i18n="footer.privacy">Datenschutzerklärung</a></li>
+            <li><a href="terms.html" data-i18n="footer.terms">Nutzungsbedingungen &amp; Impressum</a></li>
+            <li><a href="https://github.com/CuraVaultApp/CuraVaultApp.github.io" target="_blank" rel="noopener noreferrer" data-i18n="footer.github">GitHub-Repository</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> CuraVault · <span data-i18n="footer.rights">Alle Rechte vorbehalten.</span></span>
+        <span class="no-cookie">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span data-i18n="footer.nocookies">Diese Website verwendet keine Cookies und kein Tracking.</span>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

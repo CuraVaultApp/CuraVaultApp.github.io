@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seite nicht gefunden – CuraVault</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0B1120">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'self'; form-action 'none'">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="404">
+  <header class="site-header">
+    <nav class="container nav" aria-label="Navigation">
+      <a class="brand" href="index.html" aria-label="CuraVault">
+        <img src="assets/logo.svg" alt="" width="30" height="30" aria-hidden="true">
+        <span>CuraVault</span>
+      </a>
+      <div class="nav-right">
+        <div class="lang-switch" role="group" aria-label="Sprache wählen" data-i18n-attr="aria-label:a11y.lang">
+          <button type="button" data-lang="de" lang="de" aria-pressed="true" title="Deutsch">DE</button>
+          <button type="button" data-lang="fr" lang="fr" aria-pressed="false" title="Français">FR</button>
+          <button type="button" data-lang="it" lang="it" aria-pressed="false" title="Italiano">IT</button>
+          <button type="button" data-lang="en" lang="en" aria-pressed="false" title="English">EN</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="notfound">
+    <div>
+      <div class="code" aria-hidden="true">404</div>
+      <h1 data-i18n="nf.title">Seite nicht gefunden</h1>
+      <p data-i18n="nf.text">Diese Seite existiert nicht oder wurde verschoben. Deine Daten sind trotzdem sicher – sie sind ja auf deinem Gerät.</p>
+      <a class="btn btn-primary" href="index.html">← <span data-i18n="nf.back">Zur Startseite</span></a>
+      <nav class="notfound-links" aria-label="Rechtliches">
+        <a href="privacy.html" data-i18n="footer.privacy">Datenschutzerklärung</a>
+        <a href="terms.html" data-i18n="footer.terms">Nutzungsbedingungen &amp; Impressum</a>
+      </nav>
+    </div>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
